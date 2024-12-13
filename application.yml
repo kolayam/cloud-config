@@ -2,13 +2,13 @@ eureka:
   instance:
     instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: ${DISCOVERY_PREFER_IP:true}
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 8
+    leaseRenewalIntervalInSeconds: 30
+    leaseExpirationDurationInSeconds: 40
   client:
     serviceUrl:
       defaultZone: ${DISCOVERY_SERVER_URI:http://localhost:8761}/eureka/
     healthcheck:
-      enabled: true
+      enabled: ${EUREKA_CLIENT_HEALTHCHECK:true}
 
 ---
 
@@ -33,4 +33,8 @@ eureka:
     client:
       initialInstanceInfoReplicationIntervalSeconds: 5
       registryFetchIntervalSeconds: 2
+      serviceUrl:
+        defaultZone: ${DISCOVERY_SERVER_URI:http://localhost:8761}/eureka/
+      healthcheck:
+        enabled: ${EUREKA_CLIENT_HEALTHCHECK:true}
 
